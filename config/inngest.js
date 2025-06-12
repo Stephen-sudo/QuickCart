@@ -19,7 +19,7 @@ export const syncUserCreation = inngest.createFunction(
             _id:id,
             email: email_addresses[0].email_address,
             name: first_name + " " + last_name,
-            image: image_url,
+            imageUrl: image_url,
         }
         await connectDB();
         await User.create(userData);
@@ -37,7 +37,7 @@ export const syncUserUpdation = inngest.createFunction(
             _id: id,
             email: email_addresses[0].email_address,
             name: first_name + " " + last_name,
-            image: image_url,
+            imageUrl: image_url,
         };
         await connectDB();
         await User.findByIdAndUpdate(id, userData);
@@ -50,7 +50,7 @@ export const syncUserDeletion = inngest.createFunction(
     {event:"clerk/user.deleted"},
     async ({event}) => {
         const {id} = event.data;
-        
+
         await connectDB();
         await User.findByIdAndDelete(id);
     }
